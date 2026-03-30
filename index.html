@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark" style="color-scheme: light dark;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Jordan Szu-Jan Lin — founder of PoolRev; full-stack engineer and product leader. AI-driven field service automation, Meemo at Digital Harbor, BoostLink, Race Entry. Portfolio and contact.">
     <title>Jordan Szu-Jan Lin — Founder, Product &amp; Engineering</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark');
+            } catch (e) {}
+        })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -17,6 +25,8 @@
                         darkest: '#000000',
                         accent: '#00e5ff',
                         accent2: '#00ff88',
+                        accentLM: '#0f766e',
+                        accent2LM: '#047857',
                         surface: '#121212',
                         surface2: '#1a1a1a',
                         textMain: '#ffffff',
@@ -33,21 +43,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background-color: #f5f5f4; color: #1c1917; }
+        .dark body { background-color: #0a0a0a; color: #ffffff; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        ::-webkit-scrollbar-track { background: #e7e5e4; }
+        ::-webkit-scrollbar-thumb { background: #a8a29e; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #78716c; }
+        .dark ::-webkit-scrollbar-track { background: #0a0a0a; }
+        .dark ::-webkit-scrollbar-thumb { background: #333; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #555; }
         .gradient-text {
-            background: linear-gradient(90deg, #00e5ff, #00ff88);
+            background: linear-gradient(90deg, #0f766e, #047857);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .dark .gradient-text {
+            background: linear-gradient(90deg, #00e5ff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
         .glass-card {
-            background: rgba(18, 18, 18, 0.7);
+            background: rgba(250, 250, 249, 0.82);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(28, 25, 23, 0.06);
+        }
+        .dark .glass-card {
+            background: rgba(18, 18, 18, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .hover-lift {
@@ -55,32 +78,53 @@
         }
         .hover-lift:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(28, 25, 23, 0.12);
+        }
+        .dark .hover-lift:hover {
             box-shadow: 0 10px 30px -10px rgba(0, 229, 255, 0.2);
+        }
+        /* Explicit grayscale: Tailwind filter utilities can miss <img> in some light-mode / WebKit cases */
+        #profile-photo {
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+            transition: -webkit-filter 0.7s ease, filter 0.7s ease;
+        }
+        #profile-photo:hover {
+            -webkit-filter: grayscale(0%);
+            filter: grayscale(0%);
         }
     </style>
 </head>
-<body class="w-full min-h-screen text-textMain antialiased selection:bg-accent selection:text-dark">
+<body class="w-full min-h-screen text-stone-900 dark:text-textMain antialiased selection:bg-teal-200/90 selection:text-stone-900 dark:selection:bg-accent dark:selection:text-dark">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 glass-card border-b border-white/5 transition-all duration-300 bg-dark/80 shadow-lg">
+    <nav id="navbar" class="fixed w-full z-50 backdrop-blur-md border-b border-stone-300/60 dark:border-white/5 transition-all duration-300 bg-transparent">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex-shrink-0 flex items-center gap-2">
-                    <span class="text-2xl font-bold tracking-tighter">JL<span class="text-accent">.</span></span>
+                    <span class="text-2xl font-bold tracking-tighter">JL<span class="text-accentLM dark:text-accent">.</span></span>
                 </div>
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="text-sm font-medium text-textMuted hover:text-white transition-colors">About</a>
-                    <a href="#poolrev" class="text-sm font-medium text-textMuted hover:text-white transition-colors">Poolrev</a>
-                    <a href="#experience" class="text-sm font-medium text-textMuted hover:text-white transition-colors">Experience</a>
-                    <a href="#skills" class="text-sm font-medium text-textMuted hover:text-white transition-colors">Skills</a>
-                    <a href="#contact" class="px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-medium transition-all hover:border-accent/50 text-white">Contact Me</a>
+                    <a href="#about" class="text-sm font-medium text-stone-600 hover:text-stone-900 dark:text-textMuted dark:hover:text-white transition-colors">About</a>
+                    <a href="#poolrev" class="text-sm font-medium text-stone-600 hover:text-stone-900 dark:text-textMuted dark:hover:text-white transition-colors">Poolrev</a>
+                    <a href="#experience" class="text-sm font-medium text-stone-600 hover:text-stone-900 dark:text-textMuted dark:hover:text-white transition-colors">Experience</a>
+                    <a href="#skills" class="text-sm font-medium text-stone-600 hover:text-stone-900 dark:text-textMuted dark:hover:text-white transition-colors">Skills</a>
+                    <button type="button" id="theme-toggle-desktop" class="p-2 rounded-full text-stone-600 hover:text-stone-900 hover:bg-black/5 dark:text-textMuted dark:hover:text-white dark:hover:bg-white/10 transition-colors" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon text-lg dark:hidden" aria-hidden="true"></i>
+                        <i class="fas fa-sun text-lg hidden dark:inline" aria-hidden="true"></i>
+                    </button>
+                    <a href="#contact" class="px-5 py-2.5 rounded-full bg-stone-900/5 hover:bg-stone-900/10 border border-stone-200 text-sm font-medium transition-all hover:border-accentLM/55 dark:hover:border-accent/50 text-stone-900 dark:bg-white/5 dark:hover:bg-white/10 dark:border-white/10 dark:text-white">Contact Me</a>
                 </div>
                 
                 <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-textMuted hover:text-white focus:outline-none p-2">
+                <div class="md:hidden flex items-center gap-1">
+                    <button type="button" id="theme-toggle-mobile" class="text-stone-600 hover:text-stone-900 dark:text-textMuted dark:hover:text-white focus:outline-none p-2 rounded-full" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon text-xl dark:hidden" aria-hidden="true"></i>
+                        <i class="fas fa-sun text-xl hidden dark:inline" aria-hidden="true"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-stone-600 hover:text-stone-900 dark:text-textMuted dark:hover:text-white focus:outline-none p-2">
                         <i class="fas fa-bars text-xl" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -88,86 +132,86 @@
         </div>
         
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-white/5 absolute w-full">
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-surface border-b border-stone-200 dark:border-white/5 absolute w-full backdrop-blur-md">
             <div class="px-4 pt-2 pb-6 space-y-2">
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-white hover:bg-white/5">About</a>
-                <a href="#poolrev" class="block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-white hover:bg-white/5">Poolrev</a>
-                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-white hover:bg-white/5">Experience</a>
-                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-white hover:bg-white/5">Skills</a>
-                <a href="#contact" class="block px-3 py-2 mt-4 text-center rounded-md text-base font-medium bg-accent text-dark">Contact Me</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-textMuted dark:hover:text-white dark:hover:bg-white/5">About</a>
+                <a href="#poolrev" class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-textMuted dark:hover:text-white dark:hover:bg-white/5">Poolrev</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-textMuted dark:hover:text-white dark:hover:bg-white/5">Experience</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-100 dark:text-textMuted dark:hover:text-white dark:hover:bg-white/5">Skills</a>
+                <a href="#contact" class="block px-3 py-2 mt-4 text-center rounded-md text-base font-medium bg-accentLM dark:bg-accent text-dark">Contact Me</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="about" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-[90vh] flex items-center">
+    <section id="about" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-[90vh] flex items-center bg-stone-50 dark:bg-transparent">
         <!-- Background Elements -->
-        <div class="absolute top-1/4 -right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute bottom-1/4 -left-1/4 w-96 h-96 bg-accent2/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/4 -right-1/4 w-96 h-96 bg-accentLM/8 dark:bg-accent/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 -left-1/4 w-96 h-96 bg-accent2LM/6 dark:bg-accent2/10 rounded-full blur-[120px] pointer-events-none"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
                 <div class="order-2 lg:order-1">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6">
-                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                        <span class="text-xs font-mono text-textMuted uppercase tracking-wider">Currently building PoolRev — first paying customers live</span>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-900/5 border border-stone-200 dark:bg-white/5 dark:border-white/10 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-accentLM dark:bg-accent animate-pulse"></span>
+                        <span class="text-xs font-mono text-stone-600 dark:text-textMuted uppercase tracking-wider">Currently building PoolRev — first paying customers live</span>
                     </div>
                     
                     <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight">
                         Jordan <br class="hidden sm:block">
-                        <span class="text-white">Szu-Jan Lin</span>
+                        <span class="text-stone-900 dark:text-white">Szu-Jan Lin</span>
                     </h1>
                     
-                    <p class="text-xl sm:text-2xl text-textMuted mb-4 font-light max-w-2xl leading-relaxed">
+                    <p class="text-xl sm:text-2xl text-stone-600 dark:text-textMuted mb-4 font-light max-w-2xl leading-relaxed">
                         Full-stack engineer and product leader (PM + IC). <br>
                         Founder of <span class="gradient-text font-medium">PoolRev</span>—building AI-driven systems that automate real-world operations.
                     </p>
-                    <p class="text-lg sm:text-xl text-textMuted mb-8 font-light max-w-2xl leading-relaxed">
+                    <p class="text-lg sm:text-xl text-stone-600 dark:text-textMuted mb-8 font-light max-w-2xl leading-relaxed">
                         I design, build, and scale products end-to-end: from strategy and positioning to engineering, deployment, and growth.
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                        <a href="#experience" class="inline-flex justify-center items-center px-8 py-4 rounded-full bg-white text-dark font-semibold hover:bg-gray-200 transition-colors">
+                        <a href="#experience" class="inline-flex justify-center items-center px-8 py-4 rounded-full bg-stone-900 text-white font-semibold hover:bg-stone-800 dark:bg-white dark:text-dark dark:hover:bg-gray-200 transition-colors">
                             View Experience
                         </a>
-                        <a href="#contact" class="inline-flex justify-center items-center px-8 py-4 rounded-full bg-transparent border border-white/20 text-white font-medium hover:bg-white/5 transition-colors">
+                        <a href="#contact" class="inline-flex justify-center items-center px-8 py-4 rounded-full bg-transparent border border-stone-300 text-stone-900 font-medium hover:bg-stone-100 dark:border-white/20 dark:text-white dark:hover:bg-white/5 transition-colors">
                             Get in Touch <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
                         </a>
                     </div>
                     
                     <!-- Contact Quick Info -->
-                    <div class="flex flex-wrap gap-6 text-sm font-mono text-textMuted">
+                    <div class="flex flex-wrap gap-6 text-sm font-mono text-stone-600 dark:text-textMuted">
                         <div class="flex items-center gap-2">
-                            <i class="fas fa-location-dot text-accent" aria-hidden="true"></i>
+                            <i class="fas fa-location-dot text-accentLM dark:text-accent" aria-hidden="true"></i>
                             <span>Provo, UT</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <i class="fas fa-envelope text-accent" aria-hidden="true"></i>
-                            <a href="mailto:szujan.lin@gmail.com" class="hover:text-white transition-colors">szujan.lin@gmail.com</a>
+                            <i class="fas fa-envelope text-accentLM dark:text-accent" aria-hidden="true"></i>
+                            <a href="mailto:szujan.lin@gmail.com" class="hover:text-stone-900 dark:hover:text-white transition-colors">szujan.lin@gmail.com</a>
                         </div>
                         <div class="flex items-center gap-2">
-                            <i class="fas fa-phone text-accent" aria-hidden="true"></i>
-                            <a href="tel:+18083835460" class="hover:text-white transition-colors">(808) 383-5460</a>
+                            <i class="fas fa-phone text-accentLM dark:text-accent" aria-hidden="true"></i>
+                            <a href="tel:+18083835460" class="hover:text-stone-900 dark:hover:text-white transition-colors">(808) 383-5460</a>
                         </div>
                     </div>
                 </div>
                 
                 <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
                     <div class="relative w-72 h-72 sm:w-96 sm:h-96">
-                        <div class="absolute inset-0 rounded-full border border-white/10 animate-[spin_20s_linear_infinite]"></div>
-                        <div class="absolute inset-4 rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse]"></div>
-                        <div class="absolute inset-8 rounded-full overflow-hidden bg-surface2 border border-white/10">
-                            <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="images/profile.jpeg" alt="Jordan Szu-Jan Lin, outdoor portrait with Mount Fuji in the background">
+                        <div class="absolute inset-0 rounded-full border border-stone-200 dark:border-white/10 animate-[spin_20s_linear_infinite]"></div>
+                        <div class="absolute inset-4 rounded-full border border-stone-100 dark:border-white/5 animate-[spin_15s_linear_infinite_reverse]"></div>
+                        <div class="absolute inset-8 rounded-full overflow-hidden bg-stone-100 dark:bg-surface2 border border-stone-200 dark:border-white/10">
+                            <img id="profile-photo" class="w-full h-full object-cover" src="images/profile.jpeg" alt="Jordan Szu-Jan Lin, outdoor portrait with Mount Fuji in the background">
                         </div>
                         <!-- Floating Tech Badges -->
-                        <div class="absolute top-10 -left-6 bg-surface p-3 rounded-xl border border-white/10 shadow-2xl animate-bounce" style="animation-duration: 3s;">
-                            <i class="fab fa-aws text-2xl text-white" aria-hidden="true"></i>
+                        <div class="absolute top-10 -left-6 bg-white dark:bg-surface p-3 rounded-xl border border-stone-200 dark:border-white/10 shadow-2xl animate-bounce" style="animation-duration: 3s;">
+                            <i class="fab fa-aws text-2xl text-stone-800 dark:text-white" aria-hidden="true"></i>
                         </div>
-                        <div class="absolute bottom-20 -right-4 bg-surface p-3 rounded-xl border border-white/10 shadow-2xl animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
-                            <i class="fab fa-node-js text-2xl text-accent2" aria-hidden="true"></i>
+                        <div class="absolute bottom-20 -right-4 bg-white dark:bg-surface p-3 rounded-xl border border-stone-200 dark:border-white/10 shadow-2xl animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
+                            <i class="fab fa-node-js text-2xl text-accent2LM dark:text-accent2" aria-hidden="true"></i>
                         </div>
-                        <div class="absolute top-32 -right-8 bg-surface p-3 rounded-xl border border-white/10 shadow-2xl animate-bounce" style="animation-duration: 3.5s; animation-delay: 0.5s;">
-                            <span class="font-bold text-accent font-mono text-sm">TS</span>
+                        <div class="absolute top-32 -right-8 bg-white dark:bg-surface p-3 rounded-xl border border-stone-200 dark:border-white/10 shadow-2xl animate-bounce" style="animation-duration: 3.5s; animation-delay: 0.5s;">
+                            <span class="font-bold text-accentLM dark:text-accent font-mono text-sm">TS</span>
                         </div>
                     </div>
                 </div>
@@ -176,19 +220,19 @@
     </section>
 
     <!-- Featured: Poolrev Section -->
-    <section id="poolrev" class="py-24 bg-darker relative border-y border-white/5">
+    <section id="poolrev" class="py-24 bg-stone-100 dark:bg-darker relative border-y border-stone-200 dark:border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="order-2 lg:order-1 relative">
-                    <div class="absolute -inset-4 bg-gradient-to-r from-accent/20 to-accent2/20 blur-2xl opacity-50 rounded-3xl"></div>
-                    <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-surface shadow-2xl">
-                        <div class="h-10 bg-surface2 border-b border-white/5 flex items-center px-4 gap-2">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-accentLM/12 to-accent2LM/10 dark:from-accent/20 dark:to-accent2/20 blur-2xl opacity-50 rounded-3xl"></div>
+                    <div class="relative rounded-2xl overflow-hidden border border-stone-200 dark:border-white/10 bg-white dark:bg-surface shadow-2xl">
+                        <div class="h-10 bg-stone-100 dark:bg-surface2 border-b border-stone-200 dark:border-white/5 flex items-center px-4 gap-2">
                             <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                             <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                            <div class="ml-4 text-xs font-mono text-textMuted">poolrev.png</div>
+                            <div class="ml-4 text-xs font-mono text-stone-600 dark:text-textMuted">poolrev.png</div>
                         </div>
-                        <div class="p-6 h-80 overflow-hidden relative bg-surface2">
+                        <div class="p-6 h-80 overflow-hidden relative bg-stone-50 dark:bg-surface2">
                             <img class="w-full h-full object-contain rounded-lg" src="images/poolrev.png" alt="PoolRev product screenshot">
                         </div>
                     </div>
@@ -196,27 +240,27 @@
                 
                 <div class="order-1 lg:order-2">
                     <div class="flex items-center gap-3 mb-4">
-                        <span class="text-accent font-mono text-sm uppercase tracking-widest">Featured Project</span>
-                        <div class="h-px bg-white/10 flex-grow"></div>
+                        <span class="text-accentLM dark:text-accent font-mono text-sm uppercase tracking-widest">Featured Project</span>
+                        <div class="h-px bg-stone-300 dark:bg-white/10 flex-grow"></div>
                     </div>
                     
                     <h2 class="text-4xl md:text-5xl font-bold mb-6">
                         Founder at <span class="gradient-text">PoolRev</span>
                     </h2>
                     
-                    <p class="text-lg text-textMuted mb-6 leading-relaxed">
+                    <p class="text-lg text-stone-600 dark:text-textMuted mb-6 leading-relaxed">
                         Leading product and engineering at PoolRev—building AI-driven systems that automate field service operations and improve real-world efficiency.
                     </p>
-                    <ul class="text-gray-400 text-base leading-relaxed space-y-3 list-disc list-inside marker:text-accent mb-8">
+                    <ul class="text-stone-600 dark:text-gray-400 text-base leading-relaxed space-y-3 list-disc list-inside marker:text-accentLM dark:marker:text-accent mb-8">
                         <li>Built and scaled core platform across web and mobile, including routing, CRM, billing, and service workflows</li>
-                        <li>Led QA and integration team (2 engineers), ensuring reliability across deployments and third-party systems</li>
+                        <li>Led QA and integration team, ensuring reliability across deployments and third-party systems</li>
                         <li>Designed and optimized the sales funnel, improving conversion through onboarding, UX, and positioning</li>
                         <li>Defined product roadmap and execution strategy, balancing speed, stability, and long-term scalability</li>
                     </ul>
-                    <p class="text-sm font-mono text-gray-400 uppercase tracking-wider mb-3">Demos</p>
-                    <ul class="space-y-2 text-base text-textMuted">
-                        <li><a href="https://poolrev.io" class="text-accent hover:underline" target="_blank" rel="noopener noreferrer">https://poolrev.io</a></li>
-                        <li><a href="https://app.poolrev.io/demo" class="text-accent hover:underline" target="_blank" rel="noopener noreferrer">https://app.poolrev.io/demo</a></li>
+                    <p class="text-sm font-mono text-stone-600 dark:text-gray-400 uppercase tracking-wider mb-3">Demos</p>
+                    <ul class="space-y-2 text-base text-stone-600 dark:text-textMuted">
+                        <li><a href="https://poolrev.io" class="text-accentLM dark:text-accent hover:underline" target="_blank" rel="noopener noreferrer">https://poolrev.io</a></li>
+                        <li><a href="https://app.poolrev.io/demo" class="text-accentLM dark:text-accent hover:underline" target="_blank" rel="noopener noreferrer">https://app.poolrev.io/demo</a></li>
                     </ul>
                 </div>
             </div>
@@ -224,27 +268,27 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-24 bg-dark">
+    <section id="experience" class="py-24 bg-white dark:bg-dark">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Professional Experience</h2>
-                <p class="text-textMuted">Shipping production products end-to-end—from strategy to engineering and growth.</p>
+                <p class="text-stone-600 dark:text-textMuted">Shipping production products end-to-end—from strategy to engineering and growth.</p>
             </div>
             
-            <div class="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent">
+            <div class="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-stone-200 dark:before:via-white/10 before:to-transparent">
                 
                 <!-- Experience Item: Digital Harbor -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-dark bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accent group-hover:border-accent/30">
-                        <i class="fas fa-briefcase text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-stone-200 dark:border-dark bg-white dark:bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accentLM dark:group-hover:bg-accent group-hover:border-accentLM/35 dark:group-hover:border-accent/30">
+                        <i class="fas fa-briefcase text-stone-800 dark:text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
                     </div>
                     
                     <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl hover-lift">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                            <h3 class="text-xl font-bold text-white">Software Engineer — Digital Harbor</h3>
+                            <h3 class="text-xl font-bold text-stone-900 dark:text-white">Software Engineer — Digital Harbor</h3>
                         </div>
-                        <p class="text-textMuted text-sm mb-4">Lehi, UT · January 2025 – Present</p>
-                        <ul class="text-gray-400 text-sm leading-relaxed space-y-3 list-disc list-inside marker:text-accent">
+                        <p class="text-stone-600 dark:text-textMuted text-sm mb-4">Lehi, UT · January 2025 – Present</p>
+                        <ul class="text-stone-600 dark:text-gray-400 text-sm leading-relaxed space-y-3 list-disc list-inside marker:text-accentLM dark:marker:text-accent">
                             <li>Co-founded and architected Meemo, building a collaborative editing platform (Angular, Nx) with comments, tagging, reactions, and SSO</li>
                             <li>Led integration across 6+ repositories, resolving complex Angular/Ivy and build issues to enable stable product adoption</li>
                             <li>Owned front-end delivery and product success, coordinating across backend, QA, and design to ship reliable releases</li>
@@ -255,16 +299,16 @@
                 
                 <!-- PoolRev -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-dark bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accent group-hover:border-accent/30">
-                        <i class="fas fa-robot text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-stone-200 dark:border-dark bg-white dark:bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accentLM dark:group-hover:bg-accent group-hover:border-accentLM/35 dark:group-hover:border-accent/30">
+                        <i class="fas fa-robot text-stone-800 dark:text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
                     </div>
                     
                     <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl hover-lift">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                            <h3 class="text-xl font-bold text-white">Founder at PoolRev</h3>
+                            <h3 class="text-xl font-bold text-stone-900 dark:text-white">Founder at PoolRev</h3>
                         </div>
-                        <p class="text-textMuted text-sm mb-4">Provo, UT · Present</p>
-                        <ul class="text-gray-400 text-sm leading-relaxed space-y-3 list-disc list-inside marker:text-accent">
+                        <p class="text-stone-600 dark:text-textMuted text-sm mb-4">Provo, UT · Present</p>
+                        <ul class="text-stone-600 dark:text-gray-400 text-sm leading-relaxed space-y-3 list-disc list-inside marker:text-accentLM dark:marker:text-accent">
                             <li>Built and scaled core platform across web and mobile, including routing, CRM, billing, and service workflows</li>
                             <li>Led QA and integration team, ensuring reliability across deployments and third-party systems</li>
                             <li>Designed and optimized the sales funnel, improving conversion through onboarding, UX, and positioning</li>
@@ -275,38 +319,38 @@
                 
                 <!-- Harmony -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-dark bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accent group-hover:border-accent/30">
-                        <i class="fas fa-code text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-stone-200 dark:border-dark bg-white dark:bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accentLM dark:group-hover:bg-accent group-hover:border-accentLM/35 dark:group-hover:border-accent/30">
+                        <i class="fas fa-code text-stone-800 dark:text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
                     </div>
                     
                     <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl hover-lift">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                            <h3 class="text-xl font-bold text-white">Software Engineer, Backend</h3>
-                            <span class="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded shrink-0">Harmony</span>
+                            <h3 class="text-xl font-bold text-stone-900 dark:text-white">Software Engineer, Backend</h3>
+                            <span class="text-xs font-mono text-accentLM dark:text-accent bg-accentLM/15 dark:bg-accent/10 px-2 py-1 rounded shrink-0">Harmony</span>
                         </div>
-                        <p class="text-textMuted text-sm mb-4">Orem, UT · March 2024 – July 2024</p>
-                        <ul class="text-gray-400 text-sm leading-relaxed space-y-2 list-disc list-inside marker:text-accent">
+                        <p class="text-stone-600 dark:text-textMuted text-sm mb-4">Orem, UT · March 2024 – July 2024</p>
+                        <ul class="text-stone-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 list-disc list-inside marker:text-accentLM dark:marker:text-accent">
                             <li>Code-integrated UI management for Next.js (GitHub API, Babel, React AST)—designers edit layouts in the codebase.</li>
                             <li>Streamlined onboarding; GitHub-backed storage and changes; technical support for 3 beta users.</li>
                         </ul>
                         <p class="text-sm mt-3 font-mono">
-                            <a href="https://harmonyui.app/" class="text-accent hover:underline" target="_blank" rel="noopener noreferrer">harmonyui.app</a>
+                            <a href="https://harmonyui.app/" class="text-accentLM dark:text-accent hover:underline" target="_blank" rel="noopener noreferrer">harmonyui.app</a>
                         </p>
                     </div>
                 </div>
                 
                 <!-- BoostLink -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-dark bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accent group-hover:border-accent/30">
-                        <i class="fas fa-briefcase text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-stone-200 dark:border-dark bg-white dark:bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accentLM dark:group-hover:bg-accent group-hover:border-accentLM/35 dark:group-hover:border-accent/30">
+                        <i class="fas fa-briefcase text-stone-800 dark:text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
                     </div>
                     
                     <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl hover-lift">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                            <h3 class="text-xl font-bold text-white">Founder — BoostLink</h3>
+                            <h3 class="text-xl font-bold text-stone-900 dark:text-white">Founder — BoostLink</h3>
                         </div>
-                        <p class="text-textMuted text-sm mb-4">Provo, UT · November 2022 – March 2024</p>
-                        <ul class="text-gray-400 text-sm leading-relaxed space-y-2 list-disc list-inside marker:text-accent">
+                        <p class="text-stone-600 dark:text-textMuted text-sm mb-4">Provo, UT · November 2022 – March 2024</p>
+                        <ul class="text-stone-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 list-disc list-inside marker:text-accentLM dark:marker:text-accent">
                             <li>Built a Shopify analytics platform enabling behavior-driven promotions and personalized offers</li>
                             <li>Delivered production-ready architecture (React, GraphQL, AWS, Prisma, DynamoDB)</li>
                             <li>Led product direction and execution across engineering and design</li>
@@ -316,16 +360,16 @@
                 
                 <!-- Race Entry -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-dark bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accent group-hover:border-accent/30">
-                        <i class="fas fa-briefcase text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-stone-200 dark:border-dark bg-white dark:bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accentLM dark:group-hover:bg-accent group-hover:border-accentLM/35 dark:group-hover:border-accent/30">
+                        <i class="fas fa-briefcase text-stone-800 dark:text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
                     </div>
                     
                     <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl hover-lift">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                            <h3 class="text-xl font-bold text-white">Full Stack Engineer — Race Entry</h3>
+                            <h3 class="text-xl font-bold text-stone-900 dark:text-white">Full Stack Engineer — Race Entry</h3>
                         </div>
-                        <p class="text-textMuted text-sm mb-4">Provo, UT · January 2021 – Present</p>
-                        <ul class="text-gray-400 text-sm leading-relaxed space-y-2 list-disc list-inside marker:text-accent">
+                        <p class="text-stone-600 dark:text-textMuted text-sm mb-4">Provo, UT · January 2021 – Present</p>
+                        <ul class="text-stone-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 list-disc list-inside marker:text-accentLM dark:marker:text-accent">
                             <li>Built tournament feature with executive team, increasing participation by ~10%</li>
                             <li>Improved marketing systems (AWS SES, ticketing, SEO), driving +5% revenue and +30% event sign-ups</li>
                             <li>Refactored legacy PHP systems, removing 150+ hours of technical debt</li>
@@ -335,17 +379,17 @@
                 
                 <!-- Cobalt Speech -->
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-dark bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accent group-hover:border-accent/30">
-                        <i class="fas fa-microphone text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-stone-200 dark:border-dark bg-white dark:bg-surface shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors group-hover:bg-accentLM dark:group-hover:bg-accent group-hover:border-accentLM/35 dark:group-hover:border-accent/30">
+                        <i class="fas fa-microphone text-stone-800 dark:text-white group-hover:text-dark text-sm" aria-hidden="true"></i>
                     </div>
                     
                     <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl hover-lift">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                            <h3 class="text-xl font-bold text-white">Software Engineer</h3>
-                            <span class="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded shrink-0">Cobalt Speech</span>
+                            <h3 class="text-xl font-bold text-stone-900 dark:text-white">Software Engineer</h3>
+                            <span class="text-xs font-mono text-accentLM dark:text-accent bg-accentLM/15 dark:bg-accent/10 px-2 py-1 rounded shrink-0">Cobalt Speech</span>
                         </div>
-                        <p class="text-textMuted text-sm mb-4">Provo, UT · September 2021 – April 2022</p>
-                        <ul class="text-gray-400 text-sm leading-relaxed space-y-2 list-disc list-inside marker:text-accent">
+                        <p class="text-stone-600 dark:text-textMuted text-sm mb-4">Provo, UT · September 2021 – April 2022</p>
+                        <ul class="text-stone-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 list-disc list-inside marker:text-accentLM dark:marker:text-accent">
                             <li>Roadmap and sprints with CTO; Figma prototypes, CI/CD, stronger UX.</li>
                             <li>Bi-directional audio (gRPC, Go); web client toward 80% coverage (TypeScript, Jest).</li>
                         </ul>
@@ -356,27 +400,27 @@
     </section>
 
     <!-- Skills -->
-    <section id="skills" class="py-24 bg-darker border-y border-white/5">
+    <section id="skills" class="py-24 bg-stone-100 dark:bg-darker border-y border-stone-200 dark:border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col gap-12 lg:gap-14">
                 <div class="max-w-3xl">
                     <h2 class="text-3xl md:text-4xl font-bold mb-8">Skills</h2>
-                    <div class="space-y-8 text-textMuted leading-relaxed">
+                    <div class="space-y-8 text-stone-600 dark:text-textMuted leading-relaxed">
                         <div>
-                            <h3 class="text-sm font-mono text-white mb-3 uppercase tracking-wider">Core Focus</h3>
-                            <p class="text-base text-gray-400">Full-stack architecture, AI integrations, and cloud systems.<br>Experienced in building scalable products from zero to production.</p>
+                            <h3 class="text-sm font-mono text-stone-900 dark:text-white mb-3 uppercase tracking-wider">Core Focus</h3>
+                            <p class="text-base text-stone-600 dark:text-gray-400">Full-stack architecture, AI integrations, and cloud systems.<br>Experienced in building scalable products from zero to production.</p>
                         </div>
                         <div>
-                            <h3 class="text-sm font-mono text-white mb-3 uppercase tracking-wider">Stack</h3>
-                            <ul class="text-gray-400 text-base space-y-2 list-disc list-inside marker:text-accent">
+                            <h3 class="text-sm font-mono text-stone-900 dark:text-white mb-3 uppercase tracking-wider">Stack</h3>
+                            <ul class="text-stone-600 dark:text-gray-400 text-base space-y-2 list-disc list-inside marker:text-accentLM dark:marker:text-accent">
                                 <li>TypeScript, Node.js, React, PHP, Go</li>
                                 <li>AWS, Docker, MySQL, Postgres, NoSQL</li>
                                 <li>AI/LLMs, system integrations, real-time systems</li>
                             </ul>
                         </div>
                         <div>
-                            <h3 class="text-sm font-mono text-white mb-3 uppercase tracking-wider">Languages</h3>
-                            <ul class="text-gray-400 text-base space-y-1 list-disc list-inside marker:text-accent">
+                            <h3 class="text-sm font-mono text-stone-900 dark:text-white mb-3 uppercase tracking-wider">Languages</h3>
+                            <ul class="text-stone-600 dark:text-gray-400 text-base space-y-1 list-disc list-inside marker:text-accentLM dark:marker:text-accent">
                                 <li>English</li>
                                 <li>Mandarin (native)</li>
                             </ul>
@@ -384,19 +428,19 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap justify-center sm:justify-start gap-4">
-                    <div class="glass-card p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover-lift group min-w-[6.5rem]">
+                    <div class="glass-card p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover-lift group min-w-[6.5rem] text-stone-900 dark:text-inherit">
                         <i class="fab fa-js text-3xl text-yellow-400 group-hover:scale-110 transition-transform" aria-hidden="true"></i>
                         <span class="font-medium text-xs text-center">TypeScript/JS</span>
                     </div>
-                    <div class="glass-card p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover-lift group min-w-[6.5rem]">
+                    <div class="glass-card p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover-lift group min-w-[6.5rem] text-stone-900 dark:text-inherit">
                         <i class="fab fa-node-js text-3xl text-green-500 group-hover:scale-110 transition-transform" aria-hidden="true"></i>
                         <span class="font-medium text-xs">Node.js</span>
                     </div>
-                    <div class="glass-card p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover-lift group min-w-[6.5rem]">
-                        <i class="fab fa-react text-3xl text-blue-400 group-hover:scale-110 transition-transform" aria-hidden="true"></i>
+                    <div class="glass-card p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover-lift group min-w-[6.5rem] text-stone-900 dark:text-inherit">
+                        <i class="fab fa-react text-3xl text-sky-800 dark:text-blue-400 group-hover:scale-110 transition-transform" aria-hidden="true"></i>
                         <span class="font-medium text-xs">React</span>
                     </div>
-                    <div class="glass-card p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover-lift group min-w-[6.5rem]">
+                    <div class="glass-card p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover-lift group min-w-[6.5rem] text-stone-900 dark:text-inherit">
                         <i class="fab fa-aws text-3xl text-orange-400 group-hover:scale-110 transition-transform" aria-hidden="true"></i>
                         <span class="font-medium text-xs">AWS</span>
                     </div>
@@ -406,71 +450,71 @@
     </section>
 
     <!-- Leadership & Education Section -->
-    <section class="py-24 bg-dark">
+    <section class="py-24 bg-white dark:bg-dark">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 
                 <!-- Leadership -->
-                <div class="glass-card p-8 md:p-10 rounded-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-6 opacity-10">
+                <div class="glass-card p-8 md:p-10 rounded-2xl relative overflow-hidden text-stone-900 dark:text-inherit">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 text-stone-900 dark:text-inherit">
                         <i class="fas fa-users text-8xl" aria-hidden="true"></i>
                     </div>
                     <div class="relative z-10">
-                        <span class="text-accent font-mono text-sm uppercase tracking-widest mb-2 block">Leadership</span>
+                        <span class="text-accentLM dark:text-accent font-mono text-sm uppercase tracking-widest mb-2 block">Leadership</span>
                         <h3 class="text-3xl font-bold mb-6">Campus &amp; orgs</h3>
                         
                         <div class="mb-6">
-                            <h4 class="text-xl font-semibold text-white">VP of Finance</h4>
-                            <p class="text-textMuted font-mono text-sm mb-4">BYU Product Manager Society</p>
-                            <p class="text-gray-400 leading-relaxed text-sm">
+                            <h4 class="text-xl font-semibold text-stone-900 dark:text-white">VP of Finance</h4>
+                            <p class="text-stone-600 dark:text-textMuted font-mono text-sm mb-4">BYU Product Manager Society</p>
+                            <p class="text-stone-600 dark:text-gray-400 leading-relaxed text-sm">
                                 Budgets, dues, and financial operations for the chapter.
                             </p>
                         </div>
                         
                         <div>
-                            <h4 class="text-lg font-semibold text-white mb-1">Member</h4>
-                            <p class="text-textMuted font-mono text-sm">BYU Developer Club</p>
+                            <h4 class="text-lg font-semibold text-stone-900 dark:text-white mb-1">Member</h4>
+                            <p class="text-stone-600 dark:text-textMuted font-mono text-sm">BYU Developer Club</p>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Education -->
-                <div class="glass-card p-8 md:p-10 rounded-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-6 opacity-10">
+                <div class="glass-card p-8 md:p-10 rounded-2xl relative overflow-hidden text-stone-900 dark:text-inherit">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 text-stone-900 dark:text-inherit">
                         <i class="fas fa-graduation-cap text-8xl" aria-hidden="true"></i>
                     </div>
                     <div class="relative z-10">
-                        <span class="text-accent font-mono text-sm uppercase tracking-widest mb-2 block">Education</span>
+                        <span class="text-accentLM dark:text-accent font-mono text-sm uppercase tracking-widest mb-2 block">Education</span>
                         <h3 class="text-3xl font-bold mb-6">Academic Background</h3>
                         
                         <div>
                             <div class="flex items-center gap-4 mb-2">
-                                <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shrink-0">
-                                    <span class="text-dark font-bold text-xl">Y</span>
+                                <div class="w-12 h-12 bg-stone-900 dark:bg-white rounded-lg flex items-center justify-center shrink-0">
+                                    <span class="text-white dark:text-dark font-bold text-xl">Y</span>
                                 </div>
                                 <div>
-                                    <h4 class="text-xl font-semibold text-white">Brigham Young University (BYU)</h4>
-                                    <p class="text-textMuted font-mono text-sm">Provo, UT · August 2018 – April 2023</p>
-                                    <p class="text-gray-400 text-sm mt-2 leading-relaxed">
+                                    <h4 class="text-xl font-semibold text-stone-900 dark:text-white">Brigham Young University (BYU)</h4>
+                                    <p class="text-stone-600 dark:text-textMuted font-mono text-sm">Provo, UT · August 2018 – April 2023</p>
+                                    <p class="text-stone-600 dark:text-gray-400 text-sm mt-2 leading-relaxed">
                                         B.S. Computer Science, emphasis in software engineering; minor in Strategic Management.
                                     </p>
                                 </div>
                             </div>
                             
-                            <div class="mt-6 p-4 rounded-lg bg-white/5 border border-white/10 space-y-4">
+                            <div class="mt-6 p-4 rounded-lg bg-stone-100 border border-stone-200 dark:bg-white/5 dark:border-white/10 space-y-4">
                                 <div>
-                                    <p class="text-xs font-mono text-accent uppercase tracking-wider mb-2">Skills</p>
-                                    <p class="text-gray-400 text-sm leading-relaxed">
+                                    <p class="text-xs font-mono text-accentLM dark:text-accent uppercase tracking-wider mb-2">Skills</p>
+                                    <p class="text-stone-600 dark:text-gray-400 text-sm leading-relaxed">
                                         JavaScript, TypeScript, Node.js, MySQL, Python, Go, AWS, Postgres, PHP
                                     </p>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-mono text-accent uppercase tracking-wider mb-2">Awards</p>
-                                    <p class="text-gray-400 text-sm leading-relaxed">$7,500 BYU Rollins Center for Entrepreneurship &amp; Technology Grant</p>
+                                    <p class="text-xs font-mono text-accentLM dark:text-accent uppercase tracking-wider mb-2">Awards</p>
+                                    <p class="text-stone-600 dark:text-gray-400 text-sm leading-relaxed">$7,500 BYU Rollins Center for Entrepreneurship &amp; Technology Grant</p>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-mono text-accent uppercase tracking-wider mb-2">Programs</p>
-                                    <p class="text-gray-400 text-sm leading-relaxed">BYU Sandbox — year-round program, under 10% acceptance rate</p>
+                                    <p class="text-xs font-mono text-accentLM dark:text-accent uppercase tracking-wider mb-2">Programs</p>
+                                    <p class="text-stone-600 dark:text-gray-400 text-sm leading-relaxed">BYU Sandbox — year-round program, under 10% acceptance rate</p>
                                 </div>
                             </div>
                         </div>
@@ -482,35 +526,36 @@
     </section>
 
     <!-- Contact CTA Section -->
-    <section id="contact" class="py-24 bg-darker relative overflow-hidden border-t border-white/5">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA1KSIvPjwvc3ZnPg==')] opacity-50"></div>
+    <section id="contact" class="py-24 bg-stone-100 dark:bg-darker relative overflow-hidden border-t border-stone-200 dark:border-white/5">
+        <div class="absolute inset-0 dark:hidden bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgwLCAwLCAwLCAwLjA2KSIvPjwvc3ZnPg==')] opacity-60"></div>
+        <div class="absolute inset-0 hidden dark:block bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA1KSIvPjwvc3ZnPg==')] opacity-50"></div>
         
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Let’s Build Something Meaningful</h2>
-            <p class="text-lg sm:text-xl text-textMuted mb-4 max-w-2xl mx-auto font-light leading-relaxed">
+            <p class="text-lg sm:text-xl text-stone-600 dark:text-textMuted mb-4 max-w-2xl mx-auto font-light leading-relaxed">
                 I’m currently focused on building and scaling PoolRev, while staying open to high-impact opportunities in product and engineering.
             </p>
-            <p class="text-lg sm:text-xl text-textMuted mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+            <p class="text-lg sm:text-xl text-stone-600 dark:text-textMuted mb-10 max-w-2xl mx-auto font-light leading-relaxed">
                 If you’re working on something ambitious—or just want to connect—I’d love to talk.
             </p>
             
             <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-16">
-                <a href="mailto:szujan.lin@gmail.com" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-dark font-semibold hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                <a href="mailto:szujan.lin@gmail.com" class="w-full sm:w-auto px-8 py-4 rounded-full bg-stone-900 text-white font-semibold hover:bg-stone-800 dark:bg-white dark:text-dark dark:hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
                     <i class="fas fa-envelope" aria-hidden="true"></i> szujan.lin@gmail.com
                 </a>
-                <a href="tel:+18083835460" class="w-full sm:w-auto px-8 py-4 rounded-full bg-transparent border border-white/20 text-white font-medium hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+                <a href="tel:+18083835460" class="w-full sm:w-auto px-8 py-4 rounded-full bg-transparent border border-stone-300 text-stone-900 font-medium hover:bg-stone-200/50 dark:border-white/20 dark:text-white dark:hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
                     <i class="fas fa-phone" aria-hidden="true"></i> (808) 383-5460
                 </a>
             </div>
             
             <div class="flex justify-center gap-6">
-                <a href="#" class="w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center text-textMuted hover:text-white hover:border-accent hover:bg-accent/10 transition-all hover:-translate-y-1">
+                <a href="#" class="w-12 h-12 rounded-full bg-white dark:bg-surface border border-stone-200 dark:border-white/10 flex items-center justify-center text-stone-600 hover:text-stone-900 hover:border-accentLM hover:bg-accentLM/12 dark:hover:border-accent dark:hover:bg-accent/10 dark:text-textMuted dark:hover:text-white transition-all hover:-translate-y-1">
                     <i class="fab fa-github text-xl" aria-hidden="true"></i>
                 </a>
-                <a href="#" class="w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center text-textMuted hover:text-white hover:border-accent hover:bg-accent/10 transition-all hover:-translate-y-1">
+                <a href="#" class="w-12 h-12 rounded-full bg-white dark:bg-surface border border-stone-200 dark:border-white/10 flex items-center justify-center text-stone-600 hover:text-stone-900 hover:border-accentLM hover:bg-accentLM/12 dark:hover:border-accent dark:hover:bg-accent/10 dark:text-textMuted dark:hover:text-white transition-all hover:-translate-y-1">
                     <i class="fab fa-linkedin-in text-xl" aria-hidden="true"></i>
                 </a>
-                <a href="#" class="w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center text-textMuted hover:text-white hover:border-accent hover:bg-accent/10 transition-all hover:-translate-y-1">
+                <a href="#" class="w-12 h-12 rounded-full bg-white dark:bg-surface border border-stone-200 dark:border-white/10 flex items-center justify-center text-stone-600 hover:text-stone-900 hover:border-accentLM hover:bg-accentLM/12 dark:hover:border-accent dark:hover:bg-accent/10 dark:text-textMuted dark:hover:text-white transition-all hover:-translate-y-1">
                     <i class="fab fa-twitter text-xl" aria-hidden="true"></i>
                 </a>
             </div>
@@ -518,13 +563,13 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark py-8 border-t border-white/5">
+    <footer class="bg-stone-50 dark:bg-dark py-8 border-t border-stone-200 dark:border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-2xl font-bold tracking-tighter">JL<span class="text-accent">.</span></div>
-            <p class="text-sm text-textMuted font-mono">
+            <div class="text-2xl font-bold tracking-tighter">JL<span class="text-accentLM dark:text-accent">.</span></div>
+            <p class="text-sm text-stone-600 dark:text-textMuted font-mono">
                 © <span id="year">2026</span> Jordan Szu-Jan Lin. All rights reserved.
             </p>
-            <div class="text-sm text-textMuted flex gap-4">
+            <div class="text-sm text-stone-600 dark:text-textMuted flex gap-4">
                 <span>Provo, UT</span>
             </div>
         </div>
@@ -533,6 +578,17 @@
     <script>
         // Set current year
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        function themeToggle() {
+            const root = document.documentElement;
+            root.classList.toggle('dark');
+            try {
+                localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+            } catch (e) {}
+        }
+
+        document.getElementById('theme-toggle-desktop').addEventListener('click', themeToggle);
+        document.getElementById('theme-toggle-mobile').addEventListener('click', themeToggle);
         
         // Mobile menu toggle
         const btn = document.getElementById('mobile-menu-btn');
@@ -549,17 +605,19 @@
             });
         });
 
-        // Navbar blur on scroll
-        window.addEventListener('scroll', () => {
+        // Navbar background on scroll (light + dark)
+        function syncNavScroll() {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 20) {
-                nav.classList.add('bg-dark/80', 'shadow-lg');
+                nav.classList.add('bg-stone-100/90', 'dark:bg-dark/80', 'shadow-lg');
                 nav.classList.remove('bg-transparent');
             } else {
-                nav.classList.remove('bg-dark/80', 'shadow-lg');
+                nav.classList.remove('bg-stone-100/90', 'dark:bg-dark/80', 'shadow-lg');
                 nav.classList.add('bg-transparent');
             }
-        });
+        }
+        window.addEventListener('scroll', syncNavScroll, { passive: true });
+        syncNavScroll();
     </script>
 </body>
 </html>
